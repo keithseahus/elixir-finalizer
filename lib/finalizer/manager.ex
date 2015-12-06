@@ -7,10 +7,10 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 
 defmodule Finalizer.Manager do
-  use GenServer.Behaviour
+  use GenServer
 
   def start_link(_args \\ []) do
-    :gen_server.start_link({ :local, :finalizer }, __MODULE__, [], [])
+    { :ok, _pid } = GenServer.start_link(Finalizer, [])
   end
 
   def handle_call({ :register, fun }, _from, { last_id, finalizers }) do
