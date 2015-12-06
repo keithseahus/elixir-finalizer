@@ -3,8 +3,8 @@ defmodule Finalizer.Mixfile do
 
   def project do
     [ app:     :finalizer,
-      version: "0.0.2",
-      elixir:  "~> 0.12.5",
+      version: "0.0.3",
+      elixir:  "~> 1.1.1",
       deps:    deps ]
   end
 

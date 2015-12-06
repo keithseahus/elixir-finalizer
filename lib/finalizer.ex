@@ -7,7 +7,7 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 
 defmodule Finalizer do
-  use Application.Behaviour
+  use GenServer
 
   def start(_, _) do
     Finalizer.Supervisor.start_link
@@ -18,7 +18,7 @@ defmodule Finalizer do
   end
 
   def define(fun) when is_function fun, 0 do
-    id = :gen_server.call(Finalizer.Manager, { :register, fun })
+    id = GenServer.call(Finalizer.Manager, { :register, fun })
 
     Process.whereis(Finalizer.Manager)
       |> :resource.notify_when_destroyed({ :finalize, id })
@@ -33,7 +33,7 @@ defmodule Finalizer do
   end
 
   def define(data, fun) when is_function fun, 1 do
-    id = :gen_server.call(Finalizer.Manager, { :register, fun })
+    id = GenServer.call(Finalizer.Manager, { :register, fun })
 
     Process.whereis(Finalizer.Manager)
       |> :resource.notify_when_destroyed({ :finalize, id, data })
